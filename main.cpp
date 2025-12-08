@@ -1,7 +1,9 @@
 #include "mio.h"
 
 int main() {
-  std::string tes{"askdj"};
-  println("Hoje %s", tes.c_str());
+  char buf[512];
+
+  println("Read osdkaso %zd", buf);
+
   return 0;
 }
