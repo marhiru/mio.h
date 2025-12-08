@@ -1,0 +1,9 @@
+# Output files
+*.out
+
+# CMake
+.cache/
+CMakeCache.txt
+compile_commands.json
+build/
+
