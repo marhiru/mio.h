@@ -37,6 +37,34 @@ template <typename T> int builtin(const T &fmt) {
 
 } // namespace mio::mprintln
 
+template <typename F> class Defer {
+  F f;
+  bool active = true;
+
+public:
+  template <typename T> Defer(T &&f_) : f(std::forward<T>(f_)), active(true) {}
+
+  Defer(const Defer &) = delete;
+
+  Defer(Defer &&o) : f(std::move(o.f)), active(o.active) { o.active = false; }
+
+  ~Defer() {
+    if (active)
+      f();
+  }
+
+  Defer &operator=(const Defer &) = delete;
+};
+
+inline constexpr struct {
+  template <typename F> Defer<F> operator<<(F &&f) const {
+    return Defer<std::decay_t<F>>(std::forward<F>(f));
+  }
+} deferrer;
+
 #define println(...) ::mio::mprintln::builtin(__VA_ARGS__)
+#define TOKENPASTE(x, y) x##y
+#define TOKENPASTE2(x, y) TOKENPASTE(x, y)
+#define defer auto TOKENPASTE2(_defer_, __LINE__) = deferrer << [&]() noexcept
 
 #endif // MIO_H
