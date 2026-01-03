@@ -1,14 +1,6 @@
-#include "mio.h"
+#include <cstdint>
 
 int main() {
-  defer {
-    println(
-        "\nThis print are defined below, but are being called in the end of "
-        "function");
-  };
-
-  for (int i = 0; i < 100000; i++) {
-    println("[01] for_loop batch 100K %i", i);
-  }
+  uint8_t x = 255;
   return 0;
 }
