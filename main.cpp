@@ -1,9 +1,6 @@
-#include "mio.h"
+#include <cstdint>
 
 int main() {
-  char buf[512];
-
-  println("Read osdkaso %zd", buf);
-
+  uint8_t x = 255;
   return 0;
 }
